@@ -11,3 +11,171 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+html,
+body {
+    font-family: "Gotham SSm A", "Gotham SSm B", Verdana, sans-serif;
+    background-color: #f4f4f4;
+    color: #454545;
+    font-size: 16px;
+}
+
+#main-container {
+    padding: 25px;
+}
+  
+    /* CSS */
+.button-5 {
+  align-items: center;
+  background-clip: padding-box;
+  background-color: #fa6400;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 1.25;
+  min-height: 3rem;
+  padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+  position: relative;
+  text-decoration: none;
+  transition: all 250ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  width: auto;
+  margin-top: 10px;
+}
+
+.button-5:hover,
+.button-5:focus {
+  background-color: #fb8332;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+}
+
+.button-5:hover {
+  transform: translateY(-1px);
+}
+
+.button-5:active {
+  background-color: #c85000;
+  box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
+  transform: translateY(0);
+}
+
+
+.panel.teal {
+    border-top: 5px solid #008080;
+}
+
+.panel {
+    margin-bottom:20px;
+    background-color:#fff;
+    border:1px solid transparent;
+    border-radius:4px;
+    -webkit-box-shadow:0 1px 1px rgba(0,0,0,.05);
+    box-shadow:0 1px 1px rgba(0,0,0,.05)
+   }
+
+.panel {
+    border: none;
+    -webkit-box-shadow: 0px 0px 1px 1px rgba(204, 204, 204, 1);
+    -moz-box-shadow: 0px 0px 1px 1px rgba(204, 204, 204, 1);
+    box-shadow: 0px 0px 1px 1px rgba(204, 204, 204, 1);
+}
+
+.panel> .panel-body {
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+}
+
+
+.panel > .panel-heading {
+    background-color:#fff;
+    color:#002C6C;
+    background-color:#fff;
+    font-size:18px;
+    margin-left:4px;
+    margin-right:20px;
+}
+
+.panel > .panel-footer {
+    background-color:#fff;
+    color:#002C6C;
+    background-color:#fff;
+    font-size:18px;
+    margin-left:20px;
+    margin-right:20px;
+}
+
+
+/* buttons */
+a.btn:hover,
+input[type=submit]:hover,
+button.btn:hover,
+span.btn:hover {
+    -moz-box-shadow: 1px 1px 5px #ccc; 
+    -webkit-box-shadow: 1px 1px 5px #ccc; 
+    box-shadow: 1px 1px 5px #ccc;
+}
+
+a.btn.orange,
+input[type=submit].orange,
+button.btn.orange,
+span.btn.orange {
+    background-color:#F26334;
+    border-color:#F26334;
+}
+
+.rw-container{
+    margin: 0px 0px 5px 15px;
+}
+.c-label{
+    font-weight: bold;
+}
+
+#origen-heading{
+    position: relative;
+}
+
+.show-in-map{
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.location-icon{
+    width: 15px;
+    margin-bottom: 4px;
+    margin-right: 4px;
+}
+
+
+.stage-header{
+    margin-top: 20px;
+}
+
+.stage-title{
+    font-weight: bold;
+}
+
+.stage-input{
+    margin-left: 15px;
+}
+
+#trace-content .panel-body{
+    padding-top: 0px;
+}
