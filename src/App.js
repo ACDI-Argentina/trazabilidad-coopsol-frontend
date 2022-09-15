@@ -1,5 +1,4 @@
 
-import './App.css';
 import TracePage from './components/TracePage';
 
 function App() {

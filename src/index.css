@@ -16,13 +16,17 @@ code {
 html,
 body {
     font-family: "Gotham SSm A", "Gotham SSm B", Verdana, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #f4f4f4 !important;
     color: #454545;
     font-size: 16px;
 }
 
 #main-container {
     padding: 25px;
+}
+
+#main-content{  
+    padding-bottom: 30px;
 }
   
     /* CSS */
