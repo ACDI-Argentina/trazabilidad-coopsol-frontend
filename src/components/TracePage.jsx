@@ -2,6 +2,8 @@ import MapLocationDotSolid from '../assets/imgs/map-location-dot-solid.svg';
 import LocationDotSolid from '../assets/imgs/location-dot-solid.svg';
 import { Modal } from 'antd';
 import { useState } from 'react';
+import BlockchainPanel from './trace/BlockchainPanel';
+import ProductPanel from './trace/ProductPanel';
 
 const LocationIcon = () => (<img className="location-icon" src={LocationDotSolid} />);
 const ShowInMap = () => (<img src={MapLocationDotSolid} width='25' alt="Show in map" />);
@@ -20,6 +22,71 @@ const apiarios = [{
     owner: "Villa Victor Edilberto (20-18495202-6)"
 }
 ];
+
+/* Agregar a cada stage/events en location donde ocurrio */
+
+const trace = {
+    stages: [
+        {
+            bussinessDescription: "Fraccionado",
+            stage: " - Nro de lote - Nro partida",
+            date: "",
+            inputs: [
+                "Entrada tambor xx - de donde viene",
+                "Entrada tambor yy - de donde viene",
+                "Entrada tambor zz - de donde viene",
+            ]
+        },
+        {
+            bussinessDescription: "Homogeneizado",
+            stage: "Nro de lote - Nro partida",
+            date: "",
+            inputs: [
+                "Entrada tambor x - de donde viene",
+                "Entrada tambor y - de donde viene",
+                "Entrada tambor z - de donde viene",
+            ]
+        },
+        {
+            bussinessDescription: "Extracción",
+            stage: " tambor x - Nro de lote - Nro partida",
+            date: "",
+            inputs: [
+                "Alza a", //Estos estan asociados a un remito
+                "Alza b",
+                "Alza c",
+            ]
+
+        },
+        {
+            bussinessDescription: "Extracción",
+            stage: " tambor y - Nro de lote - Nro partida - fecha",
+            inputs: [
+                "Alza x",
+                "Alza y",
+                "Alza z",
+            ]
+        },
+        {
+            bussinessDescription: "Ingreso",
+            stage: "Ingreso tambor z - Nro de lote - Nro partida - fecha",
+            inputs: [
+                "Apiario 1 - id del apiario, ubicación aproximada, productor",
+                "Apiario 2 - id del apiario, ubicación aproximada , productor",
+                "Apiario 3 - id del apiario, ubicación aproximada , productor",
+            ]
+
+        }
+    ],
+    inputs: [
+        "Apiario 1 - id del apiario, ubicación aproximada, productor",
+        "Apiario 2 - id del apiario, ubicación aproximada, productor",
+        "Apiario 3 - id del apiario, ubicación aproximada, productor",
+    ]
+}
+
+
+
 
 
 
@@ -82,79 +149,28 @@ const TracePage = () => {
                         </div>
                     </div>
 
-                    <div className="panel panel-default teal">
-                        <div className="panel-heading">
-                            Información General
-                        </div>
-                        <div className="panel-body">
-                            <div className="rw-container">
-                                <span className="c-label">Tipo de producto: </span>
-                                <span>{product.name}</span>
-                            </div>
-                            <div className="rw-container">
-                                <span className="c-label">Número de lote: </span>
-                                <span>{product.lot}</span>
-                            </div>
-                            <div className="rw-container">
-                                <span className="c-label">Número de partida: </span>
-                                <span>{product.consignment}</span>
-                            </div>
-                            <div className="rw-container">
-                                <span className="c-label">Fecha de vencimiento: </span>
-                                <span>{product.expirationDate}</span>
-                            </div>
-
-                        </div>
-                    </div>
+                    <BlockchainPanel />
+                    <ProductPanel product={product} />
 
                     <div id="trace-content" className="panel panel-default teal">
                         <div className="panel-heading">
                             Movimientos
                         </div>
                         <div className="panel-body">
-                            <div className="rw-container">
-                                <div className="stage-header">
-                                    <span className="stage-title">Fraccionado</span> - Nro de lote - Nro partida - fecha
-                                </div>
-                                <div className="stage-input">Entrada tambor xx - de donde viene</div>
-                                <div className="stage-input">Entrada tambor yy - de donde viene</div>
-                                <div className="stage-input">Entrada tambor zz - de donde viene</div>
-                            </div>
-                            <div className="rw-container">
-                                <div className="stage-header">
-                                    <span className="stage-title">Homogeneizado</span> - Nro de lote - Nro partida - fecha
-                                </div>
-                                <div className="stage-input">
-                                    <a href="#extraccion-tambor-x">Entrada tambor x - de donde viene</a></div>
-                                <div className="stage-input">
-                                    <a href="#extraccion-tambor-y">Entrada tambor y - de donde viene</a></div>
-                                <div className="stage-input">
-                                    <a href="#extraccion-tambor-z">Entrada tambor z - de donde viene</a></div>
-                            </div>
-                            <div className="rw-container">
-                                <div className="stage-header" id="extraccion-tambor-x">
-                                    <span className="stage-title">Extracción tambor x</span> - Nro de lote - Nro partida - fecha
-                                </div>
-                                <div className="stage-input">Alza a</div>
-                                <div className="stage-input">Alza b</div>
-                                <div className="stage-input">Alza c</div>
-                            </div>
-                            <div className="rw-container">
-                                <div className="stage-header" id="extraccion-tambor-y">
-                                    <span className="stage-title">Extracción tambor y</span> - Nro de lote - Nro partida - fecha
-                                </div>
-                                <div className="stage-input">Alza x</div>
-                                <div className="stage-input">Alza y</div>
-                                <div className="stage-input">Alza z</div>
-                            </div>
-                            <div className="rw-container">
-                                <div className="stage-header" id="extraccion-tambor-z">
-                                    <span className="stage-title">Ingreso tambor z</span> - Nro de lote - Nro partida - fecha
-                                </div>
-                                <div className="stage-input">Apiario 1 - id del apiario, ubicación aproximada, productor</div>
-                                <div className="stage-input">Apiario 2 - id del apiario, ubicación aproximada , productor</div>
-                                <div className="stage-input">Apiario 3 - id del apiario, ubicación aproximada , productor</div>
-                            </div>
+                            {trace.stages.map((stage, idx) => {
+                                return (
+                                    <div key={idx} className="rw-container">
+                                        <div className="stage-header">
+                                            <span className="stage-title">{stage.bussinessDescription}</span> - Nro de lote - Nro partida - fecha
+                                        </div>
+                                        {stage.inputs?.map((input, iddx) => {
+                                            return (
+                                                <div key={`${stage}_${iddx}`} className="stage-input">{input}</div>
+                                            )
+                                        })}
+                                    </div>
+                                );
+                            })}
                         </div>
                     </div>
 
@@ -184,7 +200,7 @@ const TracePage = () => {
                 </div>
             </div>
             <Modal title="Apiarios Map" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                {apiarios.map((apiario,idx) => (
+                {apiarios.map((apiario, idx) => (
                     <div>{apiario.geolocation}</div>
                 ))}
             </Modal>

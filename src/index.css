@@ -141,8 +141,13 @@ span.btn.orange {
 }
 
 .rw-container{
-    margin: 0px 0px 5px 15px;
+    margin: 0px 15px 5px 15px;
 }
+
+.rw-container p {
+    margin-bottom: 8px;
+}
+
 .c-label{
     font-weight: bold;
 }
