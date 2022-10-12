@@ -10,6 +10,8 @@ import TraceResult from './trace/TraceResult';
 
 
 const TracePage = () => {
+    const [verified, setVerified] = useState(false);
+    const [hash, setHash] = useState("");
     const [lotNumber, setLotNumber] = useState("2123");
     const [itemNumber, setItemNumber] = useState("20200812102834140");
     const [loading, setLoading] = useState(false);
@@ -23,15 +25,20 @@ const TracePage = () => {
     async function search(ev) {
         ev.preventDefault();
         if (loading) return;
+        setVerified(false);
+        setHash("");
 
         setLoading(true);
         try {
-            console.log("Search ")
             const traceId = `${lotNumber}/${itemNumber}`; //Get values from form using ref 
-            console.log(traceId);
-
             const trace = await getTrace(traceId);
-            validateTrace(trace); //Set status of validating
+            const {expected, actual} = await validateTrace(trace); //Set status of validating
+
+            if(expected === actual){
+                setVerified(true);
+                console.log(actual);
+                setHash(actual);
+            }
 
             setTrace(trace.trace);
             setProduct(trace.product);
@@ -94,7 +101,8 @@ const TracePage = () => {
                         </div>
                     </div>
 
-                    <BlockchainPanel />
+                    <BlockchainPanel verified={verified} hash={hash}/>
+
                     {!loading && (
                         <>
                             {product && (
