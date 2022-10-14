@@ -103,7 +103,7 @@ const TraceResult = ({ apiarios, trace }) => {
                             <div className="rw-container" key={idx}>
                                 <b>{apiario.name}</b>
                                 <div>
-                                    <a onClick={showModal}>
+                                    <a target="_blank" href={`http://maps.google.com/maps?q=loc:${lat},${lng}`}>                                        
                                         <LocationIcon />
                                         {geolocation}</a> - {apiario.beekeper}
                                 </div>
