@@ -15,12 +15,10 @@ const sleep = ms => new Promise((resolve, reject) => {
 
 
 const TracePage = () => {
-    const [verified, setVerified] = useState(false);
     const [verifying, setVerifying] = useState(false);
     const [expectedHash, setExpectedHash] = useState(""); //Locally computed
     const [actualHash, setActualHash] = useState(""); //From smart contract
 
-    const [hash, setHash] = useState("");
     const [lotNumber, setLotNumber] = useState("2123");
     const [itemNumber, setItemNumber] = useState("20200812102834149");
 
@@ -35,8 +33,6 @@ const TracePage = () => {
     async function search(ev) {
         ev.preventDefault();
         if (loading) return;
-        setVerified(false);
-        setHash("");
         setExpectedHash("");
         setActualHash("");
 
@@ -59,12 +55,6 @@ const TracePage = () => {
                 setActualHash(actual);
                 await sleep(400);
                 setVerifying(false);
-
-                if (expected === actual) {
-                    setVerified(true);
-                    console.log(actual);
-                    setHash(actual);
-                }
             }, 100)
 
 
@@ -129,10 +119,9 @@ const TracePage = () => {
 
                     <BlockchainPanel
                         verifying={verifying}
-                        verified={verified}
                         expectedHash={expectedHash}
                         actualHash={actualHash}
-                        hash={hash}
+                        
                     />
 
                     {!loading && (

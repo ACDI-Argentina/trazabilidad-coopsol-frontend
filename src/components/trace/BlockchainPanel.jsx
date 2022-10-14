@@ -9,7 +9,8 @@ const address = config.TRACEABILITY_REGISTRY_ADDRESS;
 
 
 
-const BlockchainPanel = ({ verifying, verified, hash, expectedHash, actualHash }) => {
+const BlockchainPanel = ({ verifying, expectedHash, actualHash }) => {
+    const verified = actualHash && expectedHash === actualHash;
 
     return (
         <div className="panel panel-default teal">
@@ -53,7 +54,7 @@ const BlockchainPanel = ({ verifying, verified, hash, expectedHash, actualHash }
                                 <p className="trace-hash-container hash-container">
                                     <b className="verified">VERIFIED</b>
                                     <div>
-                                        <span className="trace-hash">{hash}</span>
+                                        <span className="trace-hash">{actualHash}</span>
                                     </div>
                                 </p>
                             </div>
