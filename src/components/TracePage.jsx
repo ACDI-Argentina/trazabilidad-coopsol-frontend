@@ -27,7 +27,7 @@ const TracePage = () => {
     const [apiarios, setApiarios] = useState();
     const [trace, setTrace] = useState();
 
-    const { getTrace, validateTrace, getExpectedHash } = useContext(TraceContext);
+    const { getTrace, getStoredHash, calculateHash } = useContext(TraceContext);
 
 
     async function search(ev) {
@@ -47,12 +47,15 @@ const TracePage = () => {
             setTimeout(async () => {
                 setVerifying(true);
                 await sleep(1400);
-                const expected = getExpectedHash(trace);
-                setExpectedHash(expected);
 
+                const expected = await getStoredHash(trace); //Set status of validating
+                setExpectedHash(expected);
+                
                 await sleep(1400);
-                const actual = await validateTrace(trace); //Set status of validating
+
+                const actual = calculateHash(trace);
                 setActualHash(actual);
+
                 await sleep(400);
                 setVerifying(false);
             }, 100)
@@ -121,7 +124,7 @@ const TracePage = () => {
                         verifying={verifying}
                         expectedHash={expectedHash}
                         actualHash={actualHash}
-                        
+
                     />
 
                     {!loading && (

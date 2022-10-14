@@ -260,12 +260,17 @@ span.btn.orange {
   margin-right: 5px;
 }
 
+.icon-img.warn{
+  margin-left: 2px;
+  width: 24px;
+  margin-right: 5px;
+}
 
 .trace-hash-container {
   margin-bottom: 0px !important;
 }
 
-.trace-hash {
+.trace-hash.verified {
   font-weight: bold;
   color: #5bb85d;
 }
@@ -378,4 +383,24 @@ span.btn.orange {
 
 .verified {
   color: #5bb85d;
+}
+
+.not-match{
+  color: tomato;
+}
+
+
+.verify-result{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 15px;
+  border: 1px solid steelblue;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+
+.verify-result.not-match{
+  border: 1px solid tomato;
 }

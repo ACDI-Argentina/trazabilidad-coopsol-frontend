@@ -1,13 +1,11 @@
 import config from "../../config/index";
 import checkSrc from "../../assets/imgs/check.png";
+import warnSrc from "../../assets/imgs/warn.png";
 import Dots from "../ui/dots";
-import { useState } from "react";
 
 const name = config.NETWORK_NAME;
 const explorer = config.NETWORK_EXPLORER;
 const address = config.TRACEABILITY_REGISTRY_ADDRESS;
-
-
 
 const BlockchainPanel = ({ verifying, expectedHash, actualHash }) => {
     const verified = actualHash && expectedHash === actualHash;
@@ -36,29 +34,50 @@ const BlockchainPanel = ({ verifying, expectedHash, actualHash }) => {
 
                         {expectedHash && (
                             <div className="hash-container scale-up-ver-top">
-                                <span class="trace-label"> Expected Hash (Locally calculated) : </span>&nbsp;
+                                <span class="trace-label"> Expected Hash (From smart contract) :</span>&nbsp;
                                 {expectedHash}
                             </div>
                         )}
 
                         {actualHash && (
                             <div className="hash-container scale-up-ver-top">
-                                <span class="trace-label"> Actual Hash (From smart contract) :</span>&nbsp;
+                                <span class="trace-label"> Actual Hash (Locally calculated) : </span>&nbsp;
                                 {actualHash}
                             </div>
                         )}
 
-                        {verified && (
-                            <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginTop: "15px" }} className="scale-up-ver-top">
+
+                        {verified ? (
+                            <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginTop: "15px" }} className="verify-result scale-up-ver-top">
                                 <img className="icon-img" src={checkSrc} alt="Verified" />
                                 <p className="trace-hash-container hash-container">
                                     <b className="verified">VERIFIED</b>
                                     <div>
-                                        <span className="trace-hash">{actualHash}</span>
+                                        <span className="trace-hash verified">{actualHash}</span>
                                     </div>
                                 </p>
                             </div>
+                        ) : (
+                            actualHash && expectedHash && (
+
+                                <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginTop: "15px" }} className=" verify-result not-match scale-up-ver-top">
+                                    <img className="icon-img warn" src={warnSrc} alt="Hashes does not match" />
+                                    <p className="trace-hash-container hash-container">
+                                        <b className="not-match">HASHES DOES NOT MATCH</b>
+                                        <p>
+                                            Recovered trace was modified, and the hash does not match the one stored in the smart contract
+                                        </p>
+
+                                        <div>
+                                            <span className="trace-hash not-match">{actualHash}</span>
+                                        </div>
+                                    </p>
+                                </div>
+                            )
+
+
                         )}
+
 
                     </div>
 

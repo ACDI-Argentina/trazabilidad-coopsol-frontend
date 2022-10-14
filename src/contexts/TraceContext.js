@@ -35,17 +35,14 @@ const WithTraceContext = ({ children }) => {
             })
         },
 
-        getExpectedHash: trace => {
+        calculateHash: trace => {
+            //Revisar xq el object hash al parecer no puede obtener el algoritmo sha256 (en object-hash/dist/object-hash 69)
             return objectHash(trace, { algorithm: "SHA256", encoding: "hex" });
         },
 
 
-        validateTrace: async (trace) => {
-            //Calculated 
-            //Revisar xq el object hash al parecer no puede obtener el algoritmo sha256 (en object-hash/dist/object-hash 69)
-        
-            //Hash from smart contract
-            const actual = await getHash(trace.id); //Esto puede fallar
+        getStoredHash: async (trace) => { //Hash from smart contract
+            const actual = await getHash(trace.id); //Esto puede fallar, por ejemplo si no se encuentra almacenado
             return actual;
     
         }
