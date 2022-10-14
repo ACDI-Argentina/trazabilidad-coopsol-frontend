@@ -11,20 +11,6 @@ const { TRACEABILITY_BACKEND } = config;
 export const TraceContext = React.createContext();
 
 const WithTraceContext = ({ children }) => {
-
- /*    useEffect(() => {
-        //wake up testing backend
-        async function wakeUp() {
-            const response = await axios.get(`${TRACEABILITY_BACKEND}/api/v1/trace/query?id=nothing`)
-        }
-
-        wakeUp();
-
-    }, []);
- */
-
-
-
     const context = {
         getTrace: async (traceId) => {
             console.log("get trace:", traceId)
@@ -48,20 +34,20 @@ const WithTraceContext = ({ children }) => {
 
             })
         },
+
+        getExpectedHash: trace => {
+            return objectHash(trace, { algorithm: "SHA256", encoding: "hex" });
+        },
+
+
         validateTrace: async (trace) => {
             //Calculated 
             //Revisar xq el object hash al parecer no puede obtener el algoritmo sha256 (en object-hash/dist/object-hash 69)
-            const expected = objectHash(trace, { algorithm: "SHA256", encoding: "hex" });
-
+        
             //Hash from smart contract
             const actual = await getHash(trace.id); //Esto puede fallar
-            return {
-                expected,
-                actual
-            }
-
-
-
+            return actual;
+    
         }
     }
 

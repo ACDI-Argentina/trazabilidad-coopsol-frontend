@@ -1,6 +1,7 @@
 import config from "../../config/index";
 import checkSrc from "../../assets/imgs/check.png";
 import Dots from "../ui/dots";
+import { useState } from "react";
 
 const name = config.NETWORK_NAME;
 const explorer = config.NETWORK_EXPLORER;
@@ -8,7 +9,7 @@ const address = config.TRACEABILITY_REGISTRY_ADDRESS;
 
 
 
-const BlockchainPanel = ({ verifying, verified, hash }) => {
+const BlockchainPanel = ({ verifying, verified, hash, expectedHash, actualHash }) => {
 
     return (
         <div className="panel panel-default teal">
@@ -21,21 +22,46 @@ const BlockchainPanel = ({ verifying, verified, hash }) => {
 
                     <p> The smart contract is deployed at <a target="_blank" href={`${explorer}/address/${address}`}>{address}</a>.
                         You can check the source code of the contract <a target="_blank" href={`${explorer}/address/${address}#code`}>here</a>.</p>
-                    {/* Add loading indicator */}
-                    {verifying && (
-                        <div style={{display: "flex", alignItems: "center"}}>
-                            <div class='spinner'></div>
-                            Verifying&nbsp;
 
-                            <Dots/>
-                        </div>
-                    )}
-                    {verified && (
-                        <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-                            <img className="icon-img" src={checkSrc} alt="Verified" />
-                            <p className="trace-hash-container"><b>VERIFIED</b>. Trace hash: <span className="trace-hash">{hash}</span></p>
-                        </div>
-                    )}
+
+                    <div>
+                        {verifying && (
+                            <div style={{ display: "flex", alignItems: "center" }} className="scale-up-ver-top">
+                                <div className='spinner'></div>
+                                Verifying&nbsp;
+                                <Dots />
+                            </div>
+                        )}
+
+                        {expectedHash && (
+                            <div className="hash-container scale-up-ver-top">
+                                <span class="trace-label"> Expected Hash (Locally calculated) : </span>&nbsp;
+                                {expectedHash}
+                            </div>
+                        )}
+
+                        {actualHash && (
+                            <div className="hash-container scale-up-ver-top">
+                                <span class="trace-label"> Actual Hash (From smart contract) :</span>&nbsp;
+                                {actualHash}
+                            </div>
+                        )}
+
+                        {verified && (
+                            <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginTop: "15px" }} className="scale-up-ver-top">
+                                <img className="icon-img" src={checkSrc} alt="Verified" />
+                                <p className="trace-hash-container hash-container">
+                                    <b className="verified">VERIFIED</b>
+                                    <div>
+                                        <span className="trace-hash">{hash}</span>
+                                    </div>
+                                </p>
+                            </div>
+                        )}
+
+                    </div>
+
+
                 </div>
             </div>
         </div>

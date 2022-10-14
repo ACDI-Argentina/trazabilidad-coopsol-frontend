@@ -8,19 +8,28 @@ import BlockchainPanel from './trace/BlockchainPanel';
 import ProductPanel from './trace/ProductPanel';
 import TraceResult from './trace/TraceResult';
 
+const sleep = ms => new Promise((resolve, reject) => {
+    setTimeout(() => resolve(ms), ms)
+
+});
+
 
 const TracePage = () => {
     const [verified, setVerified] = useState(false);
-    const [verifying, setVerifying] = useState(true);
+    const [verifying, setVerifying] = useState(false);
+    const [expectedHash, setExpectedHash] = useState(""); //Locally computed
+    const [actualHash, setActualHash] = useState(""); //From smart contract
+
     const [hash, setHash] = useState("");
     const [lotNumber, setLotNumber] = useState("2123");
     const [itemNumber, setItemNumber] = useState("20200812102834149");
+
     const [loading, setLoading] = useState(false);
     const [product, setProduct] = useState();
     const [apiarios, setApiarios] = useState();
     const [trace, setTrace] = useState();
 
-    const { getTrace, validateTrace } = useContext(TraceContext);
+    const { getTrace, validateTrace, getExpectedHash } = useContext(TraceContext);
 
 
     async function search(ev) {
@@ -28,6 +37,8 @@ const TracePage = () => {
         if (loading) return;
         setVerified(false);
         setHash("");
+        setExpectedHash("");
+        setActualHash("");
 
         setLoading(true);
         try {
@@ -39,7 +50,16 @@ const TracePage = () => {
 
             setTimeout(async () => {
                 setVerifying(true);
-                const { expected, actual } = await validateTrace(trace); //Set status of validating
+                await sleep(1400);
+                const expected = getExpectedHash(trace);
+                setExpectedHash(expected);
+
+                await sleep(1400);
+                const actual = await validateTrace(trace); //Set status of validating
+                setActualHash(actual);
+                await sleep(500);
+
+                setVerifying(false);
 
                 if (expected === actual) {
                     setVerified(true);
@@ -111,6 +131,8 @@ const TracePage = () => {
                     <BlockchainPanel
                         verifying={verifying}
                         verified={verified}
+                        expectedHash={expectedHash}
+                        actualHash={actualHash}
                         hash={hash}
                     />
 
