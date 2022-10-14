@@ -13,7 +13,7 @@ const TracePage = () => {
     const [verified, setVerified] = useState(false);
     const [hash, setHash] = useState("");
     const [lotNumber, setLotNumber] = useState("2123");
-    const [itemNumber, setItemNumber] = useState("20200812102834140");
+    const [itemNumber, setItemNumber] = useState("20200812102834148");
     const [loading, setLoading] = useState(false);
     const [product, setProduct] = useState();
     const [apiarios, setApiarios] = useState();
@@ -30,7 +30,7 @@ const TracePage = () => {
 
         setLoading(true);
         try {
-            const traceId = `${lotNumber}/${itemNumber}`; //Get values from form using ref 
+            const traceId = `${lotNumber}-${itemNumber}`; //Get values from form using ref 
             const trace = await getTrace(traceId);
             const {expected, actual} = await validateTrace(trace); //Set status of validating
 
@@ -39,10 +39,11 @@ const TracePage = () => {
                 console.log(actual);
                 setHash(actual);
             }
+            console.log(trace);
 
-            setTrace(trace.trace);
             setProduct(trace.product);
-            setApiarios(trace.apiarios);
+            setTrace(trace.trace);
+            setApiarios(trace.sources);
         } catch (err) {
             console.log(err);
         }
