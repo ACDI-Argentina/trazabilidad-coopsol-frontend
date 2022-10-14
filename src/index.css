@@ -91,6 +91,10 @@ body {
   border-top: 5px solid #008080;
 }
 
+.panel.tomato {
+  border-top: 5px solid tomato;
+}
+
 .panel {
   margin-bottom: 20px;
   background-color: #fff;
@@ -429,4 +433,12 @@ span.btn.orange {
 
 .verify-result.not-match {
   border: 1px solid tomato;
+}
+
+.not-found-body{
+  margin: 0px 15px 5px 15px;
+}
+
+.panel-heading.not-found{
+  color: tomato;
 }

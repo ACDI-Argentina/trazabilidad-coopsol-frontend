@@ -3,9 +3,11 @@ import { useContext } from 'react';
 import { useState } from 'react';
 import { TraceContext } from '../contexts/TraceContext';
 
-import Loader from './Loader';
+
 import BlockchainPanel from './trace/BlockchainPanel';
 import ProductPanel from './trace/ProductPanel';
+import SearchPanel from './trace/SearchPanel';
+import TraceNotFoundPanel from './trace/TraceNotFoundPanel';
 import TraceResult from './trace/TraceResult';
 
 const sleep = ms => new Promise((resolve, reject) => {
@@ -19,9 +21,6 @@ const TracePage = () => {
     const [expectedHash, setExpectedHash] = useState(""); //Locally computed
     const [actualHash, setActualHash] = useState(""); //From smart contract
 
-    const [lotNumber, setLotNumber] = useState("2123");
-    const [itemNumber, setItemNumber] = useState("20200812102834149");
-
     const [loading, setLoading] = useState(false);
     const [product, setProduct] = useState();
     const [apiarios, setApiarios] = useState();
@@ -29,13 +28,21 @@ const TracePage = () => {
 
     const { getTrace, getStoredHash, calculateHash } = useContext(TraceContext);
 
+    const [traceNotFound, setTraceNotFound] = useState(false);
 
-    async function search(ev) {
-        ev.preventDefault();
-        if (loading) return;
+
+    function clearResult() {
+        setTraceNotFound(false);
         setExpectedHash("");
         setActualHash("");
+        setProduct(undefined);
+        setTrace(undefined);
+        setApiarios(undefined);
+    }
 
+    async function search(lotNumber, itemNumber) {
+        if (loading) return;
+        clearResult();
         setLoading(true);
         try {
             const traceId = `${lotNumber}-${itemNumber}`; //Get values from form using ref 
@@ -50,7 +57,7 @@ const TracePage = () => {
 
                 const expected = await getStoredHash(trace); //Set status of validating
                 setExpectedHash(expected);
-                
+
                 await sleep(1400);
 
                 const actual = calculateHash(trace);
@@ -63,7 +70,13 @@ const TracePage = () => {
 
 
         } catch (err) {
-            console.log(err);
+
+            if (err.name === "AxiosError" && err.response.status === 404) {
+                console.log("SET TRACE NOT FOUND")
+                setTraceNotFound(true);
+            } else {
+                console.log(err);
+            }
         }
         setLoading(false);
 
@@ -74,58 +87,20 @@ const TracePage = () => {
         <>
             <div id="main-container">
                 <div id="main-content" className="col-lg-6 col-lg-push-3 col-md-8 col-md-push-2 col-sm-10 col-sm-push-1">
-                    <div className="panel panel-default teal">
-                        <div className="panel-heading">
-                            Trace item
-                        </div>
-                        <div id="gepir-form-container" className="panel-body">
-                            <form id="trace" method="POST" action="">
-                                <div className="col-md-6">
-                                    <div className="form-group">
-                                        <label className="control-label" htmlFor="keyValue">Lot Number</label>
-                                        <input
-                                            className="form-control"
-                                            placeholder="Lot Number" id="lotNumber"
-                                            value={lotNumber}
-                                            onChange={ev => setLotNumber(ev.target.value)}
-                                        />
-                                    </div>
-                                </div>
-                                <div className="col-md-6">
-                                    <div className="form-group">
-                                        <label className="control-label" htmlFor="keyValue">Item Number</label>
-                                        <input
-                                            className="form-control"
-                                            placeholder="Item Number"
-                                            type="text"
-                                            value={itemNumber}
-                                            onChange={ev => setItemNumber(ev.target.value)} />
-                                    </div>
-                                </div>
-                                <div className="col-md-6">
-                                    <div className="form-group">
-                                        <button
-                                            className="button-5"
-                                            id="submit-button"
-                                            onClick={search}>
-                                            Search
-                                            <div className="loader"></div>
 
-                                            <Loader active={loading} />
+                    <SearchPanel
+                        search={search}
+                        loading={loading}
+                    />
 
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
 
                     <BlockchainPanel
                         verifying={verifying}
                         expectedHash={expectedHash}
                         actualHash={actualHash}
-
                     />
+
+                    {traceNotFound && <TraceNotFoundPanel/>}
 
                     {!loading && (
                         <>
