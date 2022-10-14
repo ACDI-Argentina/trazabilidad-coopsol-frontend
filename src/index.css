@@ -289,3 +289,27 @@ span.btn.orange {
   color: #fe7a2b;
   margin-top: 3px;
 }
+
+
+.spinner {
+  display: inline-block;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 0, 0, .7);
+  border-left-color: transparent;
+  width: 14px;
+  height: 14px;
+  
+  animation: spin 1s linear infinite;
+
+  margin-right: 4px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

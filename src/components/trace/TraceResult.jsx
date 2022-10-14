@@ -49,7 +49,7 @@ const TraceResult = ({ apiarios, trace }) => {
 
                                     <div>
                                         <div className="stage-details-title inputs-title">
-                                            <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                                            <i className="fa-solid fa-arrow-right-to-bracket"></i>
                                             <img className="img-icon" src={arrowTo} alt="to" />
                                             Inputs
                                         </div>

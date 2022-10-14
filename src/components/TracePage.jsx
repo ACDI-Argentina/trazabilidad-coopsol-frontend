@@ -11,9 +11,10 @@ import TraceResult from './trace/TraceResult';
 
 const TracePage = () => {
     const [verified, setVerified] = useState(false);
+    const [verifying, setVerifying] = useState(true);
     const [hash, setHash] = useState("");
     const [lotNumber, setLotNumber] = useState("2123");
-    const [itemNumber, setItemNumber] = useState("20200812102834148");
+    const [itemNumber, setItemNumber] = useState("20200812102834149");
     const [loading, setLoading] = useState(false);
     const [product, setProduct] = useState();
     const [apiarios, setApiarios] = useState();
@@ -32,18 +33,23 @@ const TracePage = () => {
         try {
             const traceId = `${lotNumber}-${itemNumber}`; //Get values from form using ref 
             const trace = await getTrace(traceId);
-            const {expected, actual} = await validateTrace(trace); //Set status of validating
-
-            if(expected === actual){
-                setVerified(true);
-                console.log(actual);
-                setHash(actual);
-            }
-            console.log(trace);
-
             setProduct(trace.product);
             setTrace(trace.trace);
             setApiarios(trace.sources);
+
+            setTimeout(async () => {
+                setVerifying(true);
+                const { expected, actual } = await validateTrace(trace); //Set status of validating
+
+                if (expected === actual) {
+                    setVerified(true);
+                    console.log(actual);
+                    setHash(actual);
+                }
+            }, 2000)
+
+
+
         } catch (err) {
             console.log(err);
         }
@@ -102,7 +108,11 @@ const TracePage = () => {
                         </div>
                     </div>
 
-                    <BlockchainPanel verified={verified} hash={hash}/>
+                    <BlockchainPanel
+                        verifying={verifying}
+                        verified={verified}
+                        hash={hash}
+                    />
 
                     {!loading && (
                         <>
