@@ -39,43 +39,44 @@ const TraceResult = ({ apiarios, trace }) => {
                 <div className="panel-body">
                     {trace.map((stage, idx) => {
                         return (
-                            <div key={idx} className="rw-container">
+                            <div key={idx} className="stage rw-container">
                                 <div className="stage-header">
-                                    <span>{moment(stage.date).format("DD/MM/YYYY HH:mm")}</span> - &nbsp;
-                                    <span className="stage-title">{stage.type}</span>
+                                    <span className="stage-title">{stage.type}</span> &nbsp;
+                                    <span>{moment(stage.date).format("DD/MM/YYYY HH:mm")}</span> 
                                 </div>
 
-                                {Array.isArray(stage?.inputs) && stage.inputs.length > 0 && (
+                                <div className="stage-body">
+                                    {Array.isArray(stage?.inputs) && stage.inputs.length > 0 && (
 
-                                    <div>
-                                        <div className="stage-details-title inputs-title">
-                                            <i className="fa-solid fa-arrow-right-to-bracket"></i>
-                                            <img className="img-icon" src={arrowTo} alt="to" />
-                                            Inputs
+                                        <div>
+                                            <div className="stage-details-title inputs-title">
+                                                <i className="fa-solid fa-arrow-right-to-bracket"></i>
+                                                <img className="img-icon" src={arrowTo} alt="to" />
+                                                Input
+                                            </div>
+                                            {stage.inputs?.map((input, iddx) => {
+                                                return (
+                                                    <div key={`${stage}_${iddx}`} className="stage-input">{input}</div>
+                                                )
+                                            })}
                                         </div>
-                                        {stage.inputs?.map((input, iddx) => {
-                                            return (
-                                                <div key={`${stage}_${iddx}`} className="stage-input">{input}</div>
-                                            )
-                                        })}
-                                    </div>
-                                )}
+                                    )}
 
-                                {Array.isArray(stage?.outputs) && stage.outputs.length > 0 && (
+                                    {Array.isArray(stage?.outputs) && stage.outputs.length > 0 && (
 
-                                    <div>
-                                        <div className="stage-details-title outputs-title">
-                                            <img className="img-icon" src={arrowFrom} alt="from" />
-                                            Outputs
+                                        <div>
+                                            <div className="stage-details-title outputs-title">
+                                                <img className="img-icon" src={arrowFrom} alt="from" />
+                                                Output
+                                            </div>
+                                            {stage.outputs?.map((output, iddx) => {
+                                                return (
+                                                    <div key={`${stage}_${iddx}`} className="stage-output">{output}</div>
+                                                )
+                                            })}
                                         </div>
-                                        {stage.outputs?.map((output, iddx) => {
-                                            return (
-                                                <div key={`${stage}_${iddx}`} className="stage-output">{output}</div>
-                                            )
-                                        })}
-                                    </div>
-                                )}
-
+                                    )}
+                                </div>
 
 
 

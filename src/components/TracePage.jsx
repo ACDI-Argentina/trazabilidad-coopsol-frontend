@@ -73,7 +73,7 @@ const TracePage = () => {
     return (
         <>
             <div id="main-container">
-                <div id="main-content" className="col-md-6 col-md-push-3">
+                <div id="main-content" className="col-lg-6 col-lg-push-3 col-md-8 col-md-push-2 col-sm-10 col-sm-push-1">
                     <div className="panel panel-default teal">
                         <div className="panel-heading">
                             Trace item
