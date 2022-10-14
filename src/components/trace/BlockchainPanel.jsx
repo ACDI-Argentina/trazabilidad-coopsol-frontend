@@ -25,7 +25,7 @@ const BlockchainPanel = ({ verifying, expectedHash, actualHash }) => {
 
                     <div>
                         {verifying && (
-                            <div style={{ display: "flex", alignItems: "center" }} className="scale-up-ver-top">
+                            <div className="verifying scale-up-ver-top">
                                 <div className='spinner'></div>
                                 Verifying&nbsp;
                                 <Dots />

@@ -93,7 +93,6 @@ const TracePage = () => {
                         loading={loading}
                     />
 
-
                     <BlockchainPanel
                         verifying={verifying}
                         expectedHash={expectedHash}

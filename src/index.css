@@ -332,12 +332,12 @@ span.btn.orange {
   border-radius: 50%;
   border: 2px solid rgba(0, 0, 0, .7);
   border-left-color: transparent;
-  width: 14px;
-  height: 14px;
+  width: 18px;
+  height: 18px;
 
   animation: spin 1s linear infinite;
 
-  margin-right: 4px;
+  margin-right: 6px;
 }
 
 @keyframes spin {
@@ -441,4 +441,16 @@ span.btn.orange {
 
 .panel-heading.not-found{
   color: tomato;
+}
+
+.verifying{
+  display: flex;
+  align-items: center;
+  margin: 10px 0px;
+  border-radius: 4px;
+  padding:8px 5px ;
+  /* border: 1px solid #a98600;
+  background-color: #fef9c3; */
+  border: 1px solid #1d4ed8;
+  background-color: #dbeafe;
 }
