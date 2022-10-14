@@ -57,8 +57,7 @@ const TracePage = () => {
                 await sleep(1400);
                 const actual = await validateTrace(trace); //Set status of validating
                 setActualHash(actual);
-                await sleep(500);
-
+                await sleep(400);
                 setVerifying(false);
 
                 if (expected === actual) {
@@ -66,7 +65,7 @@ const TracePage = () => {
                     console.log(actual);
                     setHash(actual);
                 }
-            }, 2000)
+            }, 100)
 
 
 
