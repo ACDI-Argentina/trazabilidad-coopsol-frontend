@@ -330,7 +330,7 @@ span.btn.orange {
 .spinner {
   display: inline-block;
   border-radius: 50%;
-  border: 2px solid rgba(0, 0, 0, .7);
+  border: 2px solid #1d4ed8;
   border-left-color: transparent;
   width: 18px;
   height: 18px;
@@ -453,4 +453,6 @@ span.btn.orange {
   background-color: #fef9c3; */
   border: 1px solid #1d4ed8;
   background-color: #dbeafe;
+
+  color:#1d4ed8;
 }
