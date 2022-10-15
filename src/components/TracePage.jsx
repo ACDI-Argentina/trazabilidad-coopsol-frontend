@@ -17,7 +17,7 @@ const sleep = ms => new Promise((resolve, reject) => {
 
 
 const TracePage = () => {
-    const [verifying, setVerifying] = useState(true);
+    const [verifying, setVerifying] = useState(false);
     const [expectedHash, setExpectedHash] = useState(""); //Locally computed
     const [actualHash, setActualHash] = useState(""); //From smart contract
 
