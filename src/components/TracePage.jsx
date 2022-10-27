@@ -1,6 +1,8 @@
 
 import { useContext } from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { TraceContext } from '../contexts/TraceContext';
 
 
@@ -17,6 +19,8 @@ const sleep = ms => new Promise((resolve, reject) => {
 
 
 const TracePage = () => {
+    const { traceId } = useParams();
+
     const [verifying, setVerifying] = useState(false);
     const [expectedHash, setExpectedHash] = useState(""); //Locally computed
     const [actualHash, setActualHash] = useState(""); //From smart contract
@@ -29,6 +33,12 @@ const TracePage = () => {
     const { getTrace, getStoredHash, calculateHash } = useContext(TraceContext);
 
     const [traceNotFound, setTraceNotFound] = useState(false);
+
+    useEffect(() => {
+        if(traceId){
+            search();
+        }
+    }, [traceId])
 
 
     function clearResult() {
@@ -45,8 +55,9 @@ const TracePage = () => {
         clearResult();
         setLoading(true);
         try {
-            const traceId = `${lotNumber}-${itemNumber}`; //Get values from form using ref 
-            const trace = await getTrace(traceId);
+            console.log(traceId)
+            const lTraceId = traceId ? traceId : `${lotNumber}-${itemNumber}`; //Get values from form using ref 
+            const trace = await getTrace(lTraceId);
             setProduct(trace.product);
             setTrace(trace.trace);
             setApiarios(trace.sources);
@@ -88,10 +99,22 @@ const TracePage = () => {
             <div id="main-container">
                 <div id="main-content" className="col-lg-6 col-lg-push-3 col-md-8 col-md-push-2 col-sm-10 col-sm-push-1">
 
-                    <SearchPanel
-                        search={search}
-                        loading={loading}
-                    />
+                    {
+                        traceId && (
+                            <div>
+                                <h2>
+                                    Trace for item {traceId}
+                                </h2>
+                            </div>
+                        )
+                    }
+                    {!traceId && (
+                        <SearchPanel
+                            search={search}
+                            loading={loading}
+                        />
+
+                    )}
 
                     <BlockchainPanel
                         verifying={verifying}
@@ -99,7 +122,7 @@ const TracePage = () => {
                         actualHash={actualHash}
                     />
 
-                    {traceNotFound && <TraceNotFoundPanel/>}
+                    {traceNotFound && <TraceNotFoundPanel />}
 
                     {!loading && (
                         <>
