@@ -12,6 +12,10 @@ import SearchPanel from './trace/SearchPanel';
 import TraceNotFoundPanel from './trace/TraceNotFoundPanel';
 import TraceResult from './trace/TraceResult';
 
+import "../index.css";
+import Loader from './Loader';
+import CoopsolUCSEPanel from './trace/CoopsolUCSE/CoopsolUCSEPanel';
+
 const sleep = ms => new Promise((resolve, reject) => {
     setTimeout(() => resolve(ms), ms)
 
@@ -35,7 +39,7 @@ const TracePage = () => {
     const [traceNotFound, setTraceNotFound] = useState(false);
 
     useEffect(() => {
-        if(traceId){
+        if (traceId) {
             search();
         }
     }, [traceId])
@@ -58,9 +62,15 @@ const TracePage = () => {
             console.log(traceId)
             const lTraceId = traceId ? traceId : `${lotNumber}-${itemNumber}`; //Get values from form using ref 
             const trace = await getTrace(lTraceId);
-            setProduct(trace.product);
-            setTrace(trace.trace);
-            setApiarios(trace.sources);
+
+            if (trace.trace) {
+                setProduct(trace.product);
+                setTrace(trace.trace);
+                setApiarios(trace.sources);
+            } else {
+                //CoopsolUCSE trace
+                setTrace(trace);
+            }
 
             setTimeout(async () => {
                 setVerifying(true);
@@ -101,11 +111,16 @@ const TracePage = () => {
 
                     {
                         traceId && (
-                            <div>
-                                <h2>
+                            <>
+                                <div className='page-heading'>
                                     Trace for item {traceId}
-                                </h2>
-                            </div>
+                                </div>
+
+                                <div className={`page-subheading ${loading ? "" : "fade-out"}`}>
+                                    Loading
+                                    <Loader active color="blue" />
+                                </div>
+                            </>
                         )
                     }
                     {!traceId && (
@@ -134,6 +149,9 @@ const TracePage = () => {
                                 <TraceResult
                                     apiarios={apiarios}
                                     trace={trace} />
+                            )}
+                            {trace && !trace.trace && (
+                                <CoopsolUCSEPanel trace={trace} />
                             )}
                         </>
                     )}

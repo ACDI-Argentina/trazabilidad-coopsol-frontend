@@ -7,6 +7,8 @@ import {
   Routes
 } from "react-router-dom";
 
+import "bootstrap/dist/css/bootstrap.min.css";
+
 function App() {
   return (
     <div className="App">
@@ -14,7 +16,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<TracePage />} />
-            <Route path="/:traceId" element={<TracePage />} />
+            <Route path="/trace/:traceId" element={<TracePage />} />
           </Routes>
         </BrowserRouter>
       </WithTraceContext>
