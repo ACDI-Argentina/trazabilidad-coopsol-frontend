@@ -17,6 +17,11 @@ export default contract;
 
 
 export const getHash = async (traceId) => {
+    if(!contract){
+        throw new Error("Cannot call contract");
+    }
+
+
     const hash = await contract.hashes(traceId);
     return hash;
 }

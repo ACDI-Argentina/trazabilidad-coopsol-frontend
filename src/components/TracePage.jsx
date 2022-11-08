@@ -11,6 +11,7 @@ import ProductPanel from './trace/ProductPanel';
 import SearchPanel from './trace/SearchPanel';
 import TraceNotFoundPanel from './trace/TraceNotFoundPanel';
 import TraceResult from './trace/TraceResult';
+import ErrorPanel from './trace/ErrorPanel';
 
 import "../index.css";
 import Loader from './Loader';
@@ -34,7 +35,8 @@ const TracePage = () => {
     const [product, setProduct] = useState();
     const [apiarios, setApiarios] = useState();
     const [trace, setTrace] = useState();
-
+    const [error, setError] = useState();
+    
     const { getTrace, getStoredHash, calculateHash } = useContext(TraceContext);
 
     const [traceNotFound, setTraceNotFound] = useState(false);
@@ -55,12 +57,42 @@ const TracePage = () => {
         setApiarios(undefined);
     }
 
+
+    async function verifyTrace(trace){
+        try{
+            setError(undefined);
+            console.log(`Verify trace`, trace);
+            setVerifying(true);
+            await sleep(700);
+    
+            const expected = await getStoredHash(trace); 
+            setExpectedHash(expected);
+    
+            await sleep(700);
+    
+            const actual = calculateHash(trace);
+            setActualHash(actual);
+    
+            await sleep(400);
+            setVerifying(false);
+        } catch(err){
+            console.log(err);
+            setVerifying(false);
+            setError({
+                title: "Error getting hash",
+                msg: "Cannot read stored hash from smart contract. Retry later."
+            })
+        }
+    
+    }
+
+
+
     async function search(lotNumber, itemNumber) {
         if (loading) return;
         clearResult();
         setLoading(true);
         try {
-            console.log(traceId)
             const lTraceId = traceId ? traceId : `${lotNumber}-${itemNumber}`; //Get values from form using ref 
             const trace = await getTrace(lTraceId);
 
@@ -74,19 +106,7 @@ const TracePage = () => {
             }
 
             setTimeout(async () => {
-                setVerifying(true);
-                await sleep(1400);
-
-                const expected = await getStoredHash(trace); //Set status of validating
-                setExpectedHash(expected);
-
-                await sleep(1400);
-
-                const actual = calculateHash(trace);
-                setActualHash(actual);
-
-                await sleep(400);
-                setVerifying(false);
+                verifyTrace(trace);
             }, 100)
 
 
@@ -144,6 +164,7 @@ const TracePage = () => {
 
                     {!loading && (
                         <>
+                           {error && <ErrorPanel error={error}/>} 
                             {product && (
                                 <ProductPanel product={product} />
                             )}
@@ -156,6 +177,7 @@ const TracePage = () => {
                             {trace && !trace.trace && (
                                 <CoopsolUCSEPanel trace={trace} />
                             )}
+
                         </>
                     )}
                 </div>

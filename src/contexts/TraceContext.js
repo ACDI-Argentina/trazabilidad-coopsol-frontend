@@ -15,10 +15,8 @@ export const TraceContext = React.createContext();
 const WithTraceContext = ({ children }) => {
     const context = {
         getTrace: async (traceId) => {
-            console.log("get trace:", traceId)
-
             const response = await axios.get(`${TRACEABILITY_BACKEND}/api/v1/trace/query?id=${traceId}`)
-            console.log(response.data);
+            //console.log(response.data);
             //check if is missing and if status is 200
             if (response.status === 200 && response.data) {
                 return response.data;
@@ -44,7 +42,7 @@ const WithTraceContext = ({ children }) => {
 
 
         getStoredHash: async (trace) => { //Hash from smart contract
-            const actual = await getHash(trace.id); //Esto puede fallar, por ejemplo si no se encuentra almacenado
+            const actual = await getHash(trace.id); //Esto puede fallar, por ejemplo si no se encuentra almacenado o si no puede conectarse con el contract
             return actual;
     
         }
