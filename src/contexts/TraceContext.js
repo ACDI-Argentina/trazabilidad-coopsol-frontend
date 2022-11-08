@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
 import objectHash from "object-hash";
 import { demoApiarios, demoProduct, demoTrace } from '../demo/trace';
-import { getHash } from "../contracts/TraceabilityContract";
+//import { getHash } from "../contracts/TraceabilityContract";
+import { getHash } from  "../contracts/LacchainTraceabilityContract";
+
 import axios from "axios";
 
 //Crear instancia c/base url

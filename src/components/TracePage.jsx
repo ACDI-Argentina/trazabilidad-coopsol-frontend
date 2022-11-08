@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import { TraceContext } from '../contexts/TraceContext';
 
 
-import BlockchainPanel from './trace/BlockchainPanel';
+import ValidationPanel from './trace/ValidationPanel';
 import ProductPanel from './trace/ProductPanel';
 import SearchPanel from './trace/SearchPanel';
 import TraceNotFoundPanel from './trace/TraceNotFoundPanel';
@@ -15,6 +15,7 @@ import TraceResult from './trace/TraceResult';
 import "../index.css";
 import Loader from './Loader';
 import CoopsolUCSEPanel from './trace/CoopsolUCSE/CoopsolUCSEPanel';
+import ContractInfo from './trace/ContractInfo';
 
 const sleep = ms => new Promise((resolve, reject) => {
     setTimeout(() => resolve(ms), ms)
@@ -92,7 +93,7 @@ const TracePage = () => {
 
         } catch (err) {
 
-            if (err.name === "AxiosError" && err.response.status === 404) {
+            if (err.name === "AxiosError" && err.response?.status === 404) {
                 console.log("SET TRACE NOT FOUND")
                 setTraceNotFound(true);
             } else {
@@ -131,7 +132,9 @@ const TracePage = () => {
 
                     )}
 
-                    <BlockchainPanel
+                    <ContractInfo />
+
+                    <ValidationPanel
                         verifying={verifying}
                         expectedHash={expectedHash}
                         actualHash={actualHash}

@@ -1,4 +1,8 @@
 const CoopsolUCSEProductPanel = ({ trace }) => {
+
+    if(!trace.Producto) return null;
+
+
     return (
         <div className="panel panel-default teal">
             <div className="panel-heading">

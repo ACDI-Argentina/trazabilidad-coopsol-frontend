@@ -7,9 +7,6 @@ const CoopsolUCSEPanel = ({ trace }) => {
         <>
         <CoopsolUCSEProductPanel trace={trace}/>
         <CoopsolUCSEProductInput inputs={trace.Entradas} />
-        
-        
-        
         </>
     )
 }
