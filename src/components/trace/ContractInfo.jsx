@@ -29,7 +29,7 @@ const GoerliContractInfo = ({ }) => {
 const LacchainContractInfo = ({ }) => {
     const name = "LACChain";
     const blockchainHome = "https://www.lacchain.net/home";
-    const contractOnExplorer = `${LACCHAIN_NETWORK_EXPLORER}/address/${address}`;
+    const contractOnExplorer = `${LACCHAIN_NETWORK_EXPLORER}/address/${lacchainTraceabilityAddress}`;
 
     return (
         <div className="panel panel-default teal">
