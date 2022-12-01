@@ -17,6 +17,7 @@ function App() {
           <Routes>
             <Route path="/" element={<TracePage />} />
             <Route path="/trace/:traceId" element={<TracePage />} />
+            <Route path="/:traceId" element={<TracePage />} />
           </Routes>
         </BrowserRouter>
       </WithTraceContext>
