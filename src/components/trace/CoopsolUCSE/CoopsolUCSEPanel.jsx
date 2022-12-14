@@ -17,7 +17,7 @@ const CoopsolUCSEPanel = ({ trace, actualHash, expectedHash, verifying }) => {
                     expectedHash={expectedHash}
                     verifying={verifying}
                 />
-            )}x 
+            )}
             <ContractInfo />
 
             {trace && !trace.trace && (
