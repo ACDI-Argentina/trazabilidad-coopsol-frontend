@@ -1,5 +1,6 @@
 import checkSrc from "../../assets/imgs/check.png";
 import warnSrc from "../../assets/imgs/warn.png";
+
 import Dots from "../ui/dots";
 
 const ValidationPanel = ({ verifying, expectedHash, actualHash }) => {
@@ -9,7 +10,7 @@ const ValidationPanel = ({ verifying, expectedHash, actualHash }) => {
         <>  
             {(verifying || expectedHash || actualHash )&& (
 
-                <div className="panel panel-default teal">
+                <div className="panel panel-default">
                     <div className="panel-body">
                         <div className="rw-container">
                             {verifying ? (

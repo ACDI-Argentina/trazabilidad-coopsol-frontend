@@ -36,7 +36,7 @@ const TracePage = () => {
     const [apiarios, setApiarios] = useState();
     const [trace, setTrace] = useState();
     const [error, setError] = useState();
-    
+
     const { getTrace, getStoredHash, calculateHash } = useContext(TraceContext);
 
     const [traceNotFound, setTraceNotFound] = useState(false);
@@ -58,24 +58,24 @@ const TracePage = () => {
     }
 
 
-    async function verifyTrace(trace){
-        try{
+    async function verifyTrace(trace) {
+        try {
             setError(undefined);
             console.log(`Verify trace`, trace);
             setVerifying(true);
             await sleep(700);
-    
-            const expected = await getStoredHash(trace); 
+
+            const expected = await getStoredHash(trace);
             setExpectedHash(expected);
-    
+
             await sleep(700);
-    
+
             const actual = calculateHash(trace);
             setActualHash(actual);
-    
+
             await sleep(400);
             setVerifying(false);
-        } catch(err){
+        } catch (err) {
             console.log(err);
             setVerifying(false);
             setError({
@@ -83,7 +83,7 @@ const TracePage = () => {
                 msg: "Cannot read stored hash from smart contract. Retry later."
             })
         }
-    
+
     }
 
 
@@ -152,19 +152,13 @@ const TracePage = () => {
 
                     )}
 
-                    <ContractInfo />
 
-                    <ValidationPanel
-                        verifying={verifying}
-                        expectedHash={expectedHash}
-                        actualHash={actualHash}
-                    />
 
                     {traceNotFound && <TraceNotFoundPanel />}
 
                     {!loading && (
                         <>
-                           {error && <ErrorPanel error={error}/>} 
+                            {error && <ErrorPanel error={error} />}
                             {product && (
                                 <ProductPanel product={product} />
                             )}
@@ -174,9 +168,13 @@ const TracePage = () => {
                                     apiarios={apiarios}
                                     trace={trace} />
                             )}
-                            {trace && !trace.trace && (
-                                <CoopsolUCSEPanel trace={trace} />
-                            )}
+
+                            <CoopsolUCSEPanel
+                                trace={trace}
+                                verifying={verifying}
+                                expectedHash={expectedHash}
+                                actualHash={actualHash}
+                            />
 
                         </>
                     )}

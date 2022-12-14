@@ -1,12 +1,28 @@
+import ContractInfo from "../ContractInfo";
 import CoopsolUCSEProductInput from "./CoopsolUCSEProductInput";
 import CoopsolUCSEProductPanel from "./CoopsolUCSEProductPanel";
 
 /* Componente para mostrar las trazas con el formato de coopsol - UCSE */
-const CoopsolUCSEPanel = ({ trace }) => {
+const CoopsolUCSEPanel = ({ trace, actualHash, expectedHash, verifying }) => {
+
+
+
+
     return (
         <>
-        <CoopsolUCSEProductPanel trace={trace}/>
-        <CoopsolUCSEProductInput inputs={trace.Entradas} />
+            {trace && !trace.trace && (
+                <CoopsolUCSEProductPanel
+                    trace={trace}
+                    actualHash={actualHash}
+                    expectedHash={expectedHash}
+                    verifying={verifying}
+                />
+            )}x 
+            <ContractInfo />
+
+            {trace && !trace.trace && (
+                <CoopsolUCSEProductInput inputs={trace.Entradas} />
+            )}
         </>
     )
 }
