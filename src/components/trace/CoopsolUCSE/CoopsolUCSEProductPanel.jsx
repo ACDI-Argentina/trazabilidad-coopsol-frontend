@@ -6,13 +6,15 @@ import ValidationPanel from "../ValidationPanel";
 const CoopsolUCSEProductPanel = ({ trace, actualHash, expectedHash, verifying }) => {
 
     const verified = actualHash && expectedHash === actualHash;
-    const imgNames = [
-        "09_250_wayra_monte_nativo.png",
-        "13_450_wayra_monte_nativo.png",
-        "14_450_wayra_atamisqui.png",
-        "07_250_wayra_atamisqui.png",
-    ];
+    
+    const images = {
+        3146:"09_250_wayra_monte_nativo.png",
+        3145:"13_450_wayra_monte_nativo.png",
+        4163:"14_450_wayra_atamisqui.png",
+        4162:"07_250_wayra_atamisqui.png",
+    }
 
+    const idProducto = trace.id.split("-")[0];
 
     const [panelVisible, setPanelVisible] = useState(false);
 
@@ -54,7 +56,7 @@ const CoopsolUCSEProductPanel = ({ trace, actualHash, expectedHash, verifying })
                     <div className="img-placeholder">
                         <img
                             className="product-image"
-                            src={`https://granchaco.s3.us-west-1.amazonaws.com/test/${imgNames[2]}`}
+                            src={`https://granchaco.s3.us-west-1.amazonaws.com/test/${images[idProducto]}`}
                             alt=""
                         />
 
@@ -77,12 +79,12 @@ const CoopsolUCSEProductPanel = ({ trace, actualHash, expectedHash, verifying })
                         <img
                             onClick={toggleDetailsVisibility}
                             src={verifiedSrc}
-                            class="verified-img"
+                            className="verified-img"
                             title="Verified in blockchain"
                             alt="Verified" /> {/* Click to see details */}
                     </div>
 
-                    <div class={panelVisible ? "panel-expanded" : "panel-collapsed"}>
+                    <div className={panelVisible ? "panel-expanded" : "panel-collapsed"}>
                         <ValidationPanel
                             verifying={verifying}
                             expectedHash={expectedHash}
