@@ -27,8 +27,8 @@ const GoerliContractInfo = ({ }) => {
 
 
 const LacchainContractInfo = ({ }) => {
-    const name = "LACChain";
-    const blockchainHome = "https://www.lacchain.net/home";
+    const name = "LACNet";
+    const blockchainSite = "https://lacnet.lacchain.net/";
     const contractOnExplorer = `${LACCHAIN_NETWORK_EXPLORER}/address/${lacchainTraceabilityAddress}`;
 
     return (
@@ -36,7 +36,7 @@ const LacchainContractInfo = ({ }) => {
             <div className="panel-body">
                 <div className="rw-container">
                     <p>
-                        We store a hash of the data shown here in a smart contract on the <a href={blockchainHome} target="_blank">{name}</a> network.
+                        We store a hash of the data shown here in a smart contract on the <a href={blockchainSite} target="_blank">{name}</a> network.
                         Once written, the data cannot be modified, which guarantees the <b>immutability</b> of the data.
                     </p>
 
@@ -59,7 +59,7 @@ const ContractInfo = ({ }) => {
     return (
         <>
             {name == "Goerli" && (<GoerliContractInfo />)}
-            {name == "LACChain" && (<LacchainContractInfo />)}
+            {name == "LACNet" && (<LacchainContractInfo />)}
             
         </>
     );
