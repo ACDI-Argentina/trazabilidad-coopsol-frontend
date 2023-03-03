@@ -13,7 +13,7 @@ const ValidationPanel = ({ verifying, expectedHash, actualHash }) => {
                 <div className="panel panel-default">
                     <div className="panel-body">
                         <div className="rw-container">
-                            {verifying ? (
+                            {verifying ? ( 
                                 <div className="verifying scale-up-ver-top">
                                     <div className='spinner'></div>
                                     Verifying&nbsp;

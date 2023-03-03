@@ -28,8 +28,8 @@ const TracePage = () => {
     const { traceId } = useParams();
 
     const [verifying, setVerifying] = useState(false);
-    const [expectedHash, setExpectedHash] = useState(""); //Locally computed
-    const [actualHash, setActualHash] = useState(""); //From smart contract
+    const [smartContractStoredHash, setSmartContractStoredHash] = useState(undefined);
+    const [locallyComputedHash, setLocallyComputedHash] = useState(""); 
 
     const [loading, setLoading] = useState(false);
     const [product, setProduct] = useState();
@@ -50,8 +50,8 @@ const TracePage = () => {
 
     function clearResult() {
         setTraceNotFound(false);
-        setExpectedHash("");
-        setActualHash("");
+        setSmartContractStoredHash("");
+        setLocallyComputedHash("");
         setProduct(undefined);
         setTrace(undefined);
         setApiarios(undefined);
@@ -66,12 +66,12 @@ const TracePage = () => {
             await sleep(700);
 
             const expected = await getStoredHash(trace);
-            setExpectedHash(expected);
+            setSmartContractStoredHash(expected);
 
             await sleep(700);
 
             const actual = calculateHash(trace);
-            setActualHash(actual);
+            setLocallyComputedHash(actual);
 
             await sleep(400);
             setVerifying(false);
@@ -172,8 +172,8 @@ const TracePage = () => {
                             <CoopsolUCSEPanel
                                 trace={trace}
                                 verifying={verifying}
-                                expectedHash={expectedHash}
-                                actualHash={actualHash}
+                                smartContractStoredHash={smartContractStoredHash} /* what's stored on smart contract */
+                                locallyComputedHash={locallyComputedHash} /* Locally computed hash */
                             />
 
                         </>

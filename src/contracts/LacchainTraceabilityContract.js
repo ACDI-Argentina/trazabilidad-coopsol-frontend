@@ -20,9 +20,10 @@ export const getHash = async (traceId) => {
     if(!contract){
         throw new Error("Cannot call contract");
     }
-
-
     const hash = await contract.hashes(traceId);
+    console.log(`Hash retrieved from smart contract: ${hash}`);
+
+
     return hash;
 }
 

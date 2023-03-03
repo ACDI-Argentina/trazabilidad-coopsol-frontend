@@ -3,18 +3,14 @@ import CoopsolUCSEProductInput from "./CoopsolUCSEProductInput";
 import CoopsolUCSEProductPanel from "./CoopsolUCSEProductPanel";
 
 /* Componente para mostrar las trazas con el formato de coopsol - UCSE */
-const CoopsolUCSEPanel = ({ trace, actualHash, expectedHash, verifying }) => {
-
-
-
-
+const CoopsolUCSEPanel = ({ trace, locallyComputedHash, smartContractStoredHash, verifying }) => {
     return (
         <>
             {trace && !trace.trace && (
                 <CoopsolUCSEProductPanel
                     trace={trace}
-                    actualHash={actualHash}
-                    expectedHash={expectedHash}
+                    locallyComputedHash={locallyComputedHash}
+                    smartContractStoredHash={smartContractStoredHash}
                     verifying={verifying}
                 />
             )}
